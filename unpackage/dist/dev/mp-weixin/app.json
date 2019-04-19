@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/new/new",
+    "pages/hot/hot",
+    "pages/detail/detail",
+    "pages/tag/tag",
+    "pages/list/list"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "看图",
+    "navigationBarBackgroundColor": "#FF80AB",
+    "backgroundColor": "#EFEFEF"
+  },
+  "usingComponents": {},
+  "tabBar": {
+    "color": "#444444",
+    "selectedColor": "#FF80AB",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/new/new",
+        "iconPath": "static/index-0.png",
+        "selectedIconPath": "static/index-1.png",
+        "text": "最新"
+      },
+      {
+        "pagePath": "pages/hot/hot",
+        "iconPath": "static/hot-0.png",
+        "selectedIconPath": "static/hot-1.png",
+        "text": "推荐"
+      },
+      {
+        "pagePath": "pages/tag/tag",
+        "iconPath": "static/tag-0.png",
+        "selectedIconPath": "static/tag-1.png",
+        "text": "分类"
+      }
+    ]
+  }
+}
