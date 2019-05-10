@@ -83,7 +83,7 @@
 		},
 		onShareAppMessage() {
 			return {
-				title: "欢迎使用uni-app看图模板",
+				title: "欢迎使用",
 				path: '/pages/detail/detail?data=' + this.detailDec,
 				imageUrl:this.data[this.index]
 			}

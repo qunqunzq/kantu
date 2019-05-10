@@ -74,7 +74,13 @@
 		methods: {
 			getData() {
 				uni.request({
-					url: this.$serverUrl + '/api/picture/posts.php?page=' + (this.refreshing ? 1 : this.fetchPageNum) + '&per_page=5',
+					url: this.$serverUrl + '/public/listBaseAlbum',
+			
+					data:{
+						currentPage: this.refreshing ? 1 : this.fetchPageNum,
+						pageSizes: 5
+					},
+					header: { 'content-type': 'application/json' },
 					success: (ret) => {
 						console.log("data",ret);
 						if (ret.statusCode !== 200) {
