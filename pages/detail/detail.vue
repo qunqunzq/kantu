@@ -2,7 +2,7 @@
 	<view class="index">
 		<swiper @change="swpierChange" :style="{height:screenHeight + 'px'}">
 			<swiper-item v-for="(value,index) in data" :key="index" @click="preImg(index)">
-				<image :src="value" mode="widthFix"></image>
+				<image :src="'http://localhost:6060/'+pat+'/'+value.img_src" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
         <!-- #ifndef H5 -->
@@ -11,7 +11,7 @@
         	<!-- #ifdef APP-PLUS -->
         	<view v-if="showBtn" class="setting" @click="setting">设为壁纸</view>
         	<!-- #endif -->
-        	<view class="collect" @click="collect"></view>
+        <!-- 	<view class="collect" @click="collect"></view> -->
         </view>
         <!-- #endif -->
 	</view>
@@ -28,7 +28,8 @@
 				imgLength: 0,
 				providerList: [],
 				data: [],
-				detailDec:""
+				detailDec:"",
+				pat:'',
 			}
 		},
 		onLoad(e) {
@@ -40,8 +41,9 @@
 			this.screenHeight = uni.getSystemInfoSync().windowHeight;
 			this.detailDec = e.data;
 			let data = JSON.parse(decodeURIComponent(e.data));
-			this.imgLength = data.img_num;
-			this.data.push(data.img_src);
+			this.imgLength = data.img_num + 1;
+			this.pat = data.id;
+			this.data.push(data);
 			this.getData(data.id);
 			uni.setNavigationBarTitle({
 				title: "1/" + this.imgLength
@@ -111,10 +113,10 @@
 						scene: this.providerList[res.tapIndex].type && this.providerList[res.tapIndex].type === 'WXSenceTimeline' ?
 							'WXSenceTimeline' : "WXSceneSession",
 						type: 0,
-						title: "uni-app模版",
-						summary: "欢迎使用uni-app模版",
+						title: "玉双生",
+						summary: "",
 						imageUrl: this.data[this.index],
-						href: "https://uniapp.dcloud.io",
+						href: 'http://localhost:6060/'+this.pat+'/'+this.data[this.index].img_src,
 						success: (res) => {
 							console.log("success:" + JSON.stringify(res));
 						},
@@ -131,7 +133,7 @@
 		methods: {
 			download() {
 				uni.downloadFile({
-					url: this.data[this.index],
+					url: 'http://localhost:6060/'+this.pat+'/'+this.data[this.index].img_src,
 					success: (e) => {
 						uni.saveImageToPhotosAlbum({
 							filePath: e.tempFilePath,
@@ -220,23 +222,25 @@
 				setTimeout(() => {
 					uni.previewImage({
 						current: this.data[index],
-						urls: this.data
+						urls: 'http://localhost:6060/'+pat+'/'+this.data.img_src
 					})
 				}, 150)
 			},
 			getData(e) {
 				uni.request({
-					url: this.$serverUrl + "/api/picture/detail.php?id=" + e,
+					url: this.$serverUrl + "/public/listBaseImage",
+					data:{
+						id: e,
+					},
 					success: (res) => {
-						if (res.data.code !== 0) {
+						if (res.statusCode !== 200) {
 							uni.showModal({
-								content: "请求失败，失败原因：" + res.data.msg,
+								content: "请求失败",
 								showCancel: false
 							})
 							return;
 						}
-
-						this.data = this.data.concat(res.data.data);
+						this.data = this.data.concat(res.data.list);
 					},
 					fail: () => {
 						uni.showModal({

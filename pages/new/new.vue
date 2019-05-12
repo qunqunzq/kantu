@@ -2,7 +2,7 @@
 	<view class="index">
 		<block v-for="(item, index) in list" :key="index">
 			<view class="card" @click="goDetail(item)">
-				<image class="card-img" :src="item.img_src" mode="aspectFill"></image>
+				<image class="card-img" :src="'http://localhost:6060/'+item.id+'/'+item.img_src" mode="aspectFill"></image>
 				<text class="card-num-view">{{item.img_num}}P</text>
 				<view class="card-bottm row">
 					<view class="car-title-view row">
@@ -12,7 +12,7 @@
 				</view>
 			</view>
 		</block>
-		<text class="loadMore">加载中...</text>
+		<text class="loadMore">{{text}}</text>
 	</view>
 </template>
 
@@ -23,7 +23,9 @@
 				refreshing: false,
 				providerList: [],
 				list: [],
-				fetchPageNum: 1
+				fetchPageNum: 1,
+				text:'加载中...',
+				
 			}
 		},
 		onLoad() {
@@ -64,6 +66,7 @@
 		},
 		onReachBottom() {
             console.log("滑动到页面底部")
+			this.text = "我是有底线的";
 			this.getData();
 		},
 		onPullDownRefresh() {
@@ -75,18 +78,18 @@
 			getData() {
 				uni.request({
 					url: this.$serverUrl + '/public/listBaseAlbum',
-			
 					data:{
 						currentPage: this.refreshing ? 1 : this.fetchPageNum,
-						pageSizes: 5
+						pageSizes: 5,
+						baseSort: 0
 					},
 					header: { 'content-type': 'application/json' },
 					success: (ret) => {
-						console.log("data",ret);
+						 
 						if (ret.statusCode !== 200) {
 							console.log("失败!");
 						} else {
-							if (this.refreshing && ret.data[0].id === this.list[0].id) {
+							if (this.refreshing && ret.data.list[0].id === this.list[0].id) {
 								uni.showToast({
 									title: "已经最新",
 									icon: "none",
@@ -98,10 +101,10 @@
 							if (this.refreshing) {
 								this.refreshing = false;
 								uni.stopPullDownRefresh()
-								this.list = ret.data;
+								this.list = ret.data.list;
 								this.fetchPageNum = 2;
 							} else {
-								this.list = this.list.concat(ret.data);
+								this.list = this.list.concat(ret.data.list);
 								this.fetchPageNum += 1;
 							}
 						}

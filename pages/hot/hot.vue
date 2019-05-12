@@ -3,7 +3,7 @@
 		<block v-for="(list, index) in lists" :key="index">
 			<view class="row">
 				<view class="card card-list2" v-for="(item,key) in list" @click="goDetail(item)" :key="key">
-					<image class="card-img card-list2-img" :src="item.img_src"></image>
+					<image class="card-img card-list2-img" :src="'http://localhost:6060/'+item.id+'/'+item.img_src"></image>
 					<text class="card-num-view card-list2-num-view">{{item.img_num}}P</text>
 					<view class="card-bottm row">
 						<view class="car-title-view row">
@@ -14,7 +14,7 @@
 				</view>
 			</view>
 		</block>
-		<text class="loadMore">加载中...</text>
+		<text class="loadMore">{{text}}</text>
 	</view>
 </template>
 
@@ -24,7 +24,8 @@
 			return {
 				refreshing: false,
 				lists: [],
-				fetchPageNum: 1
+				fetchPageNum: 1,
+				text:'加载中...',
 			}
 		},
 		onLoad() {
@@ -69,17 +70,24 @@
 			this.getData();
 		},
 		onReachBottom() {
+			this.text = "我是有底线的";
 			this.getData();
 		},
 		methods: {
 			getData() {
 				uni.request({
-					url: this.$serverUrl + '/api/picture/posts.php?page=' + (this.refreshing ? 1 : this.fetchPageNum) + '&per_page=10',
+					url: this.$serverUrl + '/public/listBaseAlbum',
+					data:{
+						currentPage: this.refreshing ? 1 : this.fetchPageNum,
+						pageSizes: 10,
+						baseSort:0
+					},
+					header: { 'content-type': 'application/json' },
 					success: (ret) => {
 						if (ret.statusCode !== 200) {
 							console.log("请求失败:", ret)
 						} else {
-							if (this.refreshing && ret.data[0].id === this.lists[0][0].id) {
+							if (this.refreshing && ret.data.list[0].id === this.lists[0][0].id) {
 								uni.showToast({
 									title: "已经最新",
 									icon: "none",
@@ -90,7 +98,7 @@
 							}
 							let list = [],
 								lists = [],
-								data = ret.data;
+								data = ret.data.list;
 							for (let i = 0, length = data.length; i < length; i++) {
 								let index = Math.floor(i / 2);
 								list.push(data[i]);
@@ -99,7 +107,6 @@
 									list = [];
 								}
 							}
-							console.log("得到lists", lists);
 							if (this.refreshing) {
 								this.refreshing = false;
 								uni.stopPullDownRefresh()

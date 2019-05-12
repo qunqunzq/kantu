@@ -3,7 +3,7 @@
 		<block v-for="(list, index) in lists" :key="index">
 			<view class="row">
 				<view class="card card-list2" v-for="(item,key) in list" @click="goDetail(item)" :key="key">
-					<image class="card-img card-list2-img" :src="item.img_src"></image>
+					<image class="card-img card-list2-img" :src="'http://localhost:6060/'+item.id+'/'+item.img_src"></image>
                     <text class="card-num-view card-list2-num-view">{{item.img_num}}P</text>
 					<view class="card-bottm row">
 						<view class="car-title-view row">
@@ -26,14 +26,28 @@
 				loadMoreText:"加载中...",
 				lists: [],
 				id: 0,
-				fetchPageNum: 0
+				fetchPageNum: 1
 			}
 		},
 		onLoad(e) {
-			uni.setNavigationBarTitle({
-				title: "专题：" + e.type
-			})
-			this.id = e.id;
+			if(e.type == 1){
+				uni.setNavigationBarTitle({
+					title: "专题：婚礼" 
+				})
+			}else if(e.type == 2){
+				uni.setNavigationBarTitle({
+					title: "专题：写真" 
+				})
+			}else if(e.type == 3){
+				uni.setNavigationBarTitle({
+					title: "专题：产品" 
+				})
+			}else if(e.type == 4){
+				uni.setNavigationBarTitle({
+					title: "专题：小姐姐" 
+				})
+			}
+			this.id = e.type;
 			setTimeout(() => { //防止app里由于渲染导致转场动画卡顿
 				this.getData();
 			}, 300)
@@ -77,22 +91,24 @@
 			this.getData();
 		},
 		onReachBottom() {
-			console.log("上拉加载刷新");
-			if(this.fetchPageNum > 4){
-				this.loadMoreText = "没有更多了"
-				return;
-			}
-			this.getData();
+		console.log("上拉加载刷新"); 
+		this.loadMoreText = "我是有底线的！"
+		this.getData();
 		},
 		methods: {
 			getData(e) {
 				uni.request({
-					url: this.$serverUrl + '/api/picture/list.php?type=' + this.id,
+					url: this.$serverUrl + '/public/listBaseAlbum',
+					data:{
+						currentPage: this.refreshing ? 1 : this.fetchPageNum,
+						pageSizes: 10,
+						baseSort: this.id
+					},
 					success: (ret) => {
 						if (ret.statusCode !== 200) {
 							console.log("请求失败", ret)
 						} else {
-							if (this.refreshing && ret.data.data[0].id === this.lists[0][0].id) {
+							if (this.refreshing && ret.data.list[0].id === this.lists[0][0].id) {
 								uni.showToast({
 									title: "已经最新",
 									icon: "none",
@@ -103,7 +119,7 @@
 							}
 							let list = [],
 								lists = [],
-								data = ret.data.data;
+								data = ret.data.list;
 							for (let i = 0, length = data.length; i < length; i++) {
 								let index = Math.floor(i / 2);
 								list.push(data[i]);
