@@ -85,7 +85,8 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ "../../../../
 
 _vue.default.config.productionTip = false;
 
-_vue.default.prototype.$serverUrl = 'http://localhost:7070';
+_vue.default.prototype.$serverUrl = 'http://www.qunzq.com:7070';
+_vue.default.prototype.$imageUrl = 'http://www.qunzq.com:6060';
 
 _App.default.mpType = 'app';
 

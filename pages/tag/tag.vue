@@ -24,7 +24,6 @@
 </template>
 
 <script>
-	 
 	export default {
 		methods: {
 			goList(value) {

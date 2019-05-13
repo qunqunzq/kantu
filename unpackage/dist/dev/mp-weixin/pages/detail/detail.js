@@ -231,7 +231,7 @@ __webpack_require__.r(__webpack_exports__);
           title: "玉双生",
           summary: "",
           imageUrl: _this2.data[_this2.index],
-          href: 'http://localhost:6060/' + _this2.pat + '/' + _this2.data[_this2.index].img_src,
+          href: 'http://www.qunzq.com:6060/' + _this2.pat + '/' + _this2.data[_this2.index].img_src,
           success: function success(res) {
             console.log("success:" + JSON.stringify(res));
           },
@@ -248,7 +248,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     download: function download() {
       uni.downloadFile({
-        url: 'http://localhost:6060/' + this.pat + '/' + this.data[this.index].img_src,
+        url: 'http://www.qunzq.com:6060/' + this.pat + '/' + this.data[this.index].img_src,
         success: function success(e) {
           uni.saveImageToPhotosAlbum({
             filePath: e.tempFilePath,
@@ -337,7 +337,7 @@ __webpack_require__.r(__webpack_exports__);
       setTimeout(function () {
         uni.previewImage({
           current: _this3.data[index],
-          urls: 'http://localhost:6060/' + pat + '/' + _this3.data.img_src });
+          urls: 'http://www.qunzq.com:6060/' + pat + '/' + _this3.data.img_src });
 
       }, 150);
     },
@@ -424,7 +424,11 @@ var render = function() {
             [
               _c("image", {
                 attrs: {
-                  src: "http://localhost:6060/" + _vm.pat + "/" + value.img_src,
+                  src:
+                    "http://www.qunzq.com:6060/" +
+                    _vm.pat +
+                    "/" +
+                    value.img_src,
                   mode: "widthFix"
                 }
               })

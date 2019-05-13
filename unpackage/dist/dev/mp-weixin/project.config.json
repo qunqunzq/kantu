@@ -16,6 +16,8 @@
 	"libVersion": "2.6.4",
 	"appid": "wxb26027a678859328",
 	"projectname": "看图App模板",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

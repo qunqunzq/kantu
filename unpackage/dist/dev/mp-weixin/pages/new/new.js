@@ -288,7 +288,8 @@ var render = function() {
               _c("image", {
                 staticClass: "card-img",
                 attrs: {
-                  src: "http://localhost:6060/" + item.id + "/" + item.img_src,
+                  src:
+                    "http://www.qunzq.com:6060/" + item.id + "/" + item.img_src,
                   mode: "aspectFill"
                 }
               }),

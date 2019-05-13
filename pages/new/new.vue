@@ -2,7 +2,7 @@
 	<view class="index">
 		<block v-for="(item, index) in list" :key="index">
 			<view class="card" @click="goDetail(item)">
-				<image class="card-img" :src="'http://localhost:6060/'+item.id+'/'+item.img_src" mode="aspectFill"></image>
+				<image class="card-img" :src="'http://www.qunzq.com:6060/'+item.id+'/'+item.img_src" mode="aspectFill"></image>
 				<text class="card-num-view">{{item.img_num}}P</text>
 				<view class="card-bottm row">
 					<view class="car-title-view row">

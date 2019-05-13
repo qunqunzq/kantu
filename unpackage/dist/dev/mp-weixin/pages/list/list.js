@@ -327,7 +327,10 @@ var render = function() {
                     staticClass: "card-img card-list2-img",
                     attrs: {
                       src:
-                        "http://localhost:6060/" + item.id + "/" + item.img_src
+                        "http://www.qunzq.com:6060/" +
+                        item.id +
+                        "/" +
+                        item.img_src
                     }
                   }),
                   _c(

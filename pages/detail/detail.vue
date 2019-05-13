@@ -2,18 +2,18 @@
 	<view class="index">
 		<swiper @change="swpierChange" :style="{height:screenHeight + 'px'}">
 			<swiper-item v-for="(value,index) in data" :key="index" @click="preImg(index)">
-				<image :src="'http://localhost:6060/'+pat+'/'+value.img_src" mode="widthFix"></image>
+				<image :src="'http://www.qunzq.com:6060/'+pat+'/'+value.img_src" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
-        <!-- #ifndef H5 -->
-        <view class="detail-btn-view">
-        	<view class="download" @click="download"></view>
-        	<!-- #ifdef APP-PLUS -->
-        	<view v-if="showBtn" class="setting" @click="setting">设为壁纸</view>
-        	<!-- #endif -->
-        <!-- 	<view class="collect" @click="collect"></view> -->
-        </view>
-        <!-- #endif -->
+		<!-- #ifndef H5 -->
+		<view class="detail-btn-view">
+			<view class="download" @click="download"></view>
+			<!-- #ifdef APP-PLUS -->
+			<view v-if="showBtn" class="setting" @click="setting">设为壁纸</view>
+			<!-- #endif -->
+			<!-- 	<view class="collect" @click="collect"></view> -->
+		</view>
+		<!-- #endif -->
 	</view>
 </template>
 
@@ -28,8 +28,8 @@
 				imgLength: 0,
 				providerList: [],
 				data: [],
-				detailDec:"",
-				pat:'',
+				detailDec: "",
+				pat: '',
 			}
 		},
 		onLoad(e) {
@@ -87,14 +87,14 @@
 			return {
 				title: "欢迎使用",
 				path: '/pages/detail/detail?data=' + this.detailDec,
-				imageUrl:this.data[this.index]
+				imageUrl: this.data[this.index]
 			}
 		},
 		onNavigationBarButtonTap(e) {
-            if(e.index === 1){
-                this.collect();
-                return;
-            }
+			if (e.index === 1) {
+				this.collect();
+				return;
+			}
 			if (this.providerList.length === 0) {
 				uni.showModal({
 					title: "当前环境无分享渠道!",
@@ -102,7 +102,7 @@
 				})
 				return;
 			}
-			let itemList = this.providerList.map(function (value) {
+			let itemList = this.providerList.map(function(value) {
 				return value.name
 			})
 			uni.showActionSheet({
@@ -116,7 +116,7 @@
 						title: "玉双生",
 						summary: "",
 						imageUrl: this.data[this.index],
-						href: 'http://localhost:6060/'+this.pat+'/'+this.data[this.index].img_src,
+						href: 'http://www.qunzq.com:6060/' + this.pat + '/' + this.data[this.index].img_src,
 						success: (res) => {
 							console.log("success:" + JSON.stringify(res));
 						},
@@ -133,7 +133,7 @@
 		methods: {
 			download() {
 				uni.downloadFile({
-					url: 'http://localhost:6060/'+this.pat+'/'+this.data[this.index].img_src,
+					url: 'http://www.qunzq.com:6060/' + this.pat + '/' + this.data[this.index].img_src,
 					success: (e) => {
 						uni.saveImageToPhotosAlbum({
 							filePath: e.tempFilePath,
@@ -222,14 +222,14 @@
 				setTimeout(() => {
 					uni.previewImage({
 						current: this.data[index],
-						urls: 'http://localhost:6060/'+pat+'/'+this.data.img_src
+						urls: 'http://www.qunzq.com:6060/' + pat + '/' + this.data.img_src
 					})
 				}, 150)
 			},
 			getData(e) {
 				uni.request({
 					url: this.$serverUrl + "/public/listBaseImage",
-					data:{
+					data: {
 						id: e,
 					},
 					success: (res) => {
