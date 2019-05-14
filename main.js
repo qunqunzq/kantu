@@ -3,8 +3,8 @@ import App from './App'
 
 Vue.config.productionTip = false
 
-Vue.prototype.$serverUrl = 'http://www.qunzq.com:7070';
-Vue.prototype.$imageUrl = 'http://www.qunzq.com:6060';
+Vue.prototype.$serverUrl = 'https://www.yushuangsheng.com:7070';
+Vue.prototype.$imageUrl = 'https://www.yushuangsheng.com:6060';
 
 App.mpType = 'app'
 

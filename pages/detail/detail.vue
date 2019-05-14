@@ -2,7 +2,7 @@
 	<view class="index">
 		<swiper @change="swpierChange" :style="{height:screenHeight + 'px'}">
 			<swiper-item v-for="(value,index) in data" :key="index" @click="preImg(index)">
-				<image :src="'http://www.qunzq.com:6060/'+pat+'/'+value.img_src" mode="widthFix"></image>
+				<image :src="'https://www.yushuangsheng.com:6060/'+pat+'/'+value.img_src" mode="widthFix"></image>
 			</swiper-item>
 		</swiper>
 		<!-- #ifndef H5 -->
@@ -116,7 +116,7 @@
 						title: "玉双生",
 						summary: "",
 						imageUrl: this.data[this.index],
-						href: 'http://www.qunzq.com:6060/' + this.pat + '/' + this.data[this.index].img_src,
+						href: 'https://www.yushuangsheng.com:6060/' + this.pat + '/' + this.data[this.index].img_src,
 						success: (res) => {
 							console.log("success:" + JSON.stringify(res));
 						},
@@ -133,7 +133,7 @@
 		methods: {
 			download() {
 				uni.downloadFile({
-					url: 'http://www.qunzq.com:6060/' + this.pat + '/' + this.data[this.index].img_src,
+					url: 'https://www.yushuangsheng.com:6060/' + this.pat + '/' + this.data[this.index].img_src,
 					success: (e) => {
 						uni.saveImageToPhotosAlbum({
 							filePath: e.tempFilePath,
@@ -222,7 +222,7 @@
 				setTimeout(() => {
 					uni.previewImage({
 						current: this.data[index],
-						urls: 'http://www.qunzq.com:6060/' + pat + '/' + this.data.img_src
+						urls: 'https://www.yushuangsheng.com:6060/' + pat + '/' + this.data.img_src
 					})
 				}, 150)
 			},

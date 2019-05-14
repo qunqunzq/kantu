@@ -3,7 +3,7 @@
 		<block v-for="(list, index) in lists" :key="index">
 			<view class="row">
 				<view class="card card-list2" v-for="(item,key) in list" @click="goDetail(item)" :key="key">
-					<image class="card-img card-list2-img" :src="'http://www.qunzq.com:6060/'+item.id+'/'+item.img_src"></image>
+					<image class="card-img card-list2-img" :src="'https://www.yushuangsheng.com:6060/'+item.id+'/'+item.img_src"></image>
 					<text class="card-num-view card-list2-num-view">{{item.img_num}}P</text>
 					<view class="card-bottm row">
 						<view class="car-title-view row">

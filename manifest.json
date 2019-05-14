@@ -1,5 +1,5 @@
 {
-    "name" : "看图App模板",
+    "name" : "SHOWMAGIC",
     "appid" : "__UNI__F539398",
     "description" : "图片App模版",
     "transformPx" : false,
@@ -16,7 +16,8 @@
     "quickapp" : {},
     // 快应用特有相关
     "mp-weixin" : {
-        "appid" : "wxb26027a678859328"
+        "appid" : "wxb26027a678859328",
+        "permission" : {}
     },
     "mp-baidu" : {}
 }
